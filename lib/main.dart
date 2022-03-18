@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import './transaction.dart';
 
 void main() {
@@ -21,13 +23,13 @@ class MyHomePage extends StatelessWidget {
       id: 't1',
       title: 'New Shoes',
       amount: 10.20,
-      data: DateTime.now(),
+      date: DateTime.now(),
     ),
     Transaction(
       id: 't2',
       title: 'Weekly Groceries',
       amount: 50.50,
-      data: DateTime.now(),
+      date: DateTime.now(),
     )
   ];
 
@@ -49,6 +51,24 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ),
           ),
+          Card(
+            elevation: 5,
+            child: Container(
+              padding:  EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TextField(decoration: InputDecoration(labelText: 'Title')),
+                  TextField(decoration: InputDecoration(labelText: 'Amount')),
+                  FlatButton(
+                    child: Text('Add Trasaction'),
+                    textColor: Colors.purple,
+                    onPressed: () {},
+                  )
+                ],
+              ),
+            ),
+          ),
           Column(
             children: transaction.map((tx) {
               return Card(
@@ -64,11 +84,11 @@ class MyHomePage extends StatelessWidget {
                       ),
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        tx.amount.toString(),
+                        '\$${tx.amount}',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.orange,
+                          color: Colors.purple,
                         ),
                       ),
                     ),
@@ -78,13 +98,13 @@ class MyHomePage extends StatelessWidget {
                         Text(
                           tx.title,
                           style: TextStyle(
-                            color: Colors.orange,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
                         ),
                         Text(
-                          tx.data.toString(),
+                          DateFormat.yMMMd().format(tx.date),
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 14,
